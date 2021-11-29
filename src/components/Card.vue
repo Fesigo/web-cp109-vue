@@ -17,7 +17,8 @@
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
     ></v-img>
 
-    <v-card-title>Cafe Badilico</v-card-title>
+    <v-card-title v-if="cardInfo">{{cardInfo.title}}</v-card-title>
+    <v-card-title v-else>{{myCards[cId - 1].title}}</v-card-title>
 
     <v-card-text>
       <v-row
@@ -33,57 +34,45 @@
           size="14"
         ></v-rating>
 
-        <div class="grey--text ms-4">
-          4.5 (413)
+        <div class="grey--text ms-4" v-if="cardInfo">
+          {{cardInfo.rating}} (413)
+        </div>
+        <div class="grey--text ms-4" v-else>
+          {{myCards[cId - 1].rating}} (413)
         </div>
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        $ • Italian, Cafe
+        <!-- $ • Italian, Cafe -->
       </div>
 
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+      <div v-if="cardInfo">{{cardInfo.description}}</div>
+      <div v-else>{{myCards[cId - 1].description}}</div>
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
-
-    <v-card-title>Tonight's availability</v-card-title>
-
-    <v-card-text>
-      <v-chip-group
-        v-model="selection"
-        active-class="deep-purple accent-4 white--text"
-        column
-      >
-        <v-chip>5:30PM</v-chip>
-
-        <v-chip>7:30PM</v-chip>
-
-        <v-chip>8:00PM</v-chip>
-
-        <v-chip>9:00PM</v-chip>
-      </v-chip-group>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="deep-purple lighten-2"
-        text
-        @click="reserve"
-      >
-        Reserve
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
 <script>
+
+import store from '../store/index.js'
   export default {
+    props: ['cardId', 'cardInfo'],
     name: 'CardComp',
     data: () => ({
       loading: false,
       selection: 1,
+      cId: window.location.pathname.substr(13)
     }),
+
+    computed: {
+      myCards() {
+        return store.state.cards
+      },
+      title() {
+        return store.getters.bigTitle
+      }
+    },
 
     methods: {
       reserve () {

@@ -4,21 +4,9 @@
     <system-bar/>
 
     <v-main>
-      <carousel-comp/>
       <div class="row">
-
-      <v-row>
-        <v-col
-          v-for="(data, i) in myCards"
-          :key="i"
-          cols="12"
-          sm="4"
-        >
         
-        <card-comp :cardId="i" :cardInfo="data"></card-comp>
-          
-        </v-col>
-      </v-row>
+        <card-comp></card-comp>
 
       </div>
     </v-main>
@@ -33,14 +21,15 @@
 <script>
 import BottomNavigation from '../components/BottomNavigation.vue'
 import CardComp from '../components/Card.vue'
-import CarouselComp from '../components/Carousel.vue'
 import FooterComp from '../components/Footer.vue'
 import SystemBar from '../components/SystemBar.vue'
 import store from '../store/index.js'
 
   export default {
-  components: { BottomNavigation, CardComp, CarouselComp, FooterComp, SystemBar },
+  components: { BottomNavigation, CardComp, FooterComp, SystemBar },
     data: () => ({
+      drawer: false,
+      group: null,
       titleView: store.state.title
     }),
     computed: {
@@ -50,6 +39,12 @@ import store from '../store/index.js'
       title() {
         return store.getters.bigTitle
       }
+    },
+
+    watch: {
+      group () {
+        this.drawer = false
+      },
     },
   }
 </script>
