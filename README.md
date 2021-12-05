@@ -48,3 +48,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ![Steakhouses](/src/assets/af2/steakhouses_page.png)
 ### 'About Us' page
 ![AboutUs](/src/assets/af2/about_us_page.png)
+
+-----
+
+## AF3
+### Consuming events API
+![Events](/src/assets/af3/events.png)

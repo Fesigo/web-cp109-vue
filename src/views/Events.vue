@@ -10,7 +10,7 @@
 
       <v-row>
         <v-col
-          v-for="(data, i) in myCards"
+          v-for="(data, i) in events"
           :key="i"
           cols="12"
           sm="4"
@@ -48,7 +48,7 @@ import SystemBar from '../components/SystemBar.vue'
         return this.$store.state.cards
       },
       title() {
-        return this.$store.getters.bigTitle
+        return this.$store.getters.bigTitleEvent
       },
       events() {
         return this.$store.state.events
